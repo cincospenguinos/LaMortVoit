@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
+import MenuScene from './scenes/menu/menuScene.js';
 
-const scenes = [];
+const scene = [MenuScene];
 
 const config = {
 	width: 84,
@@ -10,7 +11,7 @@ const config = {
   	mode: Phaser.Scale.AUTO,
   	autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scenes,
+  scene,
 };
 
 const game = new Phaser.Game(config);
