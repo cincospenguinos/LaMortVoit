@@ -31,11 +31,32 @@ export default class MenuScene extends Phaser.Scene {
 	create() {
 		this.add.image(42, 10, CONST.keys.menuText);
 
+		this._createEyes();
+
+		const keyMappings = GameState.getKeyMappings();
+		this.inputKeys = this.input.keyboard.addKeys(keyMappings);
+		this._createKeyImages(keyMappings);
+	}
+
+	update() {
+		if (this.inputKeys.select.isDown) {
+			this.music.stop();
+			this.scene.start(CONST.keys.playScene, { stage: 0 });
+		}
+
+		if (this.inputKeys.options.isDown) {
+			console.warn('NO SETTINGS SET!');
+		}
+	}
+
+	_createEyes() {
 		this.eyes.push(new FullEye(this, { x: 10, y: 36 }));
 		this.eyes.push(new FullEye(this, { x: 42, y: 28 }));
 		this.eyes.push(new FullEye(this, { x: 74, y: 36 }));
 
-		this.sound.add(CONST.keys.theme).play();
+		this.music = this.sound.add(CONST.keys.theme);
+		this.music.play();
+
 		this.time.addEvent({
 			delay: 787,
 			callback: () => {
@@ -45,21 +66,14 @@ export default class MenuScene extends Phaser.Scene {
 			repeat: -1,
 			startAt: 112,
 		});
+	}
 
-		const keyMappings = GameState.getKeyMappings();
-		this.inputKeys = this.input.keyboard.addKeys(keyMappings);
-
+	_createKeyImages(keyMappings) {
 		this.add.image(22, 44, CONST.keys.cogWheel);
 		new KeyboardSprite(this, { x: 27, y: 44, currentKey: keyMappings.options });
 
 		this.add.image(57, 44, CONST.keys.playButton);
 		new KeyboardSprite(this, { x: 62, y: 44, currentKey: keyMappings.play });
-	}
-
-	update() {
-		if (this.inputKeys.options.isDown) {
-			console.log('Hello!');
-		}
 	}
 
 	get currentEye() {

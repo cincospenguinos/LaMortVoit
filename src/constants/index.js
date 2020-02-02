@@ -1,5 +1,6 @@
 import sprites from './sprites.js';
 import audio from './audio.js';
+import animations from './animations.js';
 
 const extractKeysFrom = (obj) => {
 	const keys = {};
@@ -10,6 +11,7 @@ const extractKeysFrom = (obj) => {
 const scenes = {
 	menuScene: 'MenuScene',
 	configScene: 'ConfigScene',
+	playScene: 'PlayScene',
 };
 
 const colors = {
@@ -24,6 +26,7 @@ const configTypes = {
 };
 
 const constants = {
+	animations,
 	audio,
 	colors,
 	keys: {
@@ -32,6 +35,7 @@ const constants = {
 		...extractKeysFrom(colors),
 		...extractKeysFrom(audio),
 		...extractKeysFrom(configTypes),
+		...extractKeysFrom(animations),
 	},
 	sprites,
 };
