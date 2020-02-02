@@ -3,6 +3,7 @@ import CONST from '../../constants/index.js';
 import GameState from '../../state/state.js';
 import Player from './sprites/player.js';
 import Safe from './sprites/safe.js';
+import KeyboardSprite from '../../sprites/keyboardSprite.js';
 import InputService from './services/inputService.js';
 
 export default class PlayScene extends Phaser.Scene {
@@ -37,8 +38,14 @@ export default class PlayScene extends Phaser.Scene {
 	update() {
 		this.inputService.applyInput(this.inputKeys);
 
+		this._updateSafeIndicator();
+
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.options)) {
 			this.scene.switch(CONST.keys.voirScene);
+		}
+
+		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.select) && this.playerCanOpenSafe) {
+			this.scene.switch(CONST.keys.safeScene);
 		}
 	}
 
@@ -56,5 +63,18 @@ export default class PlayScene extends Phaser.Scene {
 		this.anims.create(playerVert);
 		this.anims.create(playerLeft);
 		this.anims.create(playerRight);
+	}
+
+	_updateSafeIndicator() {
+		if (this.playerCanOpenSafe) {
+			this.safe.showIndicator();
+		} else {
+			this.safe.hideIndicator();
+		}
+	}
+
+	get playerCanOpenSafe() {
+		const playerSafeDistance = Phaser.Math.Distance.BetweenPoints(this.player, this.safe);
+		return playerSafeDistance <= 12;
 	}
 }

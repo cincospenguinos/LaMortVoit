@@ -50,7 +50,7 @@ export default class KeyboardSprite extends Phaser.GameObjects.Sprite {
 	setDisplayedKey(keyName) {
 		const key = keyboardMapping[keyName];
 
-		if (key) {
+		if (key !== undefined) {
 			this.setFrame(key);
 		}
 	}

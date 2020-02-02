@@ -40,7 +40,7 @@ export default class VoirScene extends Phaser.Scene {
 		const eyeState = GameState.getEyes();
 		this.leftEye = new FullEye(this, { x: 10, y: 36, isOpen: eyeState.left });
 		this.middleEye = new FullEye(this, { x: 42, y: 28, isOpen: eyeState.middle });
-		this.rightEye = new FullEye(this,{ x: 74, y: 36, isOpen: eyeState.right });
+		this.rightEye = new FullEye(this, { x: 74, y: 36, isOpen: eyeState.right });
 
 		const backIcon = this.add.image(3, 3, CONST.keys.backIcon);
 

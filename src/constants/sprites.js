@@ -53,6 +53,13 @@ const sprites = {
 			frameHeight: 12,
 		},
 	},
+	safeLock: {
+		location: `${spriteDir}/safeLock.png`,
+		config: {
+			frameWidth: 7,
+			frameHeight: 17,
+		}
+	},
 	tarotDeath: {
 		location: `${spriteDir}/tarotDeath.png`,
 		config: {

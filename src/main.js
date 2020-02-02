@@ -3,8 +3,9 @@ import MenuScene from './scenes/menu/menuScene.js';
 import ConfigScene from './scenes/config/configScene.js';
 import PlayScene from './scenes/play/playScene.js';
 import VoirScene from './scenes/voir/voirScene.js';
+import SafeScene from './scenes/safe/safeScene.js';
 
-const scene = [MenuScene, ConfigScene, PlayScene, VoirScene];
+const scene = [MenuScene, ConfigScene, PlayScene, VoirScene, SafeScene];
 
 const config = {
 	width: 84,
@@ -19,7 +20,7 @@ const config = {
   physics: {
   	default: 'arcade',
   	arcade: {
-  		debug: true,
+  		// debug: true,
   	},
   }
 };

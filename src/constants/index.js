@@ -13,6 +13,7 @@ const scenes = {
 	configScene: 'ConfigScene',
 	playScene: 'PlayScene',
 	voirScene: 'VoirScene',
+	safeScene: 'SafeScene',
 };
 
 const colors = {

@@ -11,6 +11,10 @@ const mappings = {
 	options: 3,
 };
 
+const getRandomInt = () => {
+	return Math.random() * Math.floor(10);
+}
+
 class GameState {
 	constructor() {
 		this.currentState = {
@@ -20,6 +24,17 @@ class GameState {
 				middle: false,
 				right: true,
 			},
+			solution: {
+				left: getRandomInt(),
+				middle: getRandomInt(),
+				right: getRandomInt(),
+			},
+			code: {
+				left: 0,
+				middle: 0,
+				right: 0,
+			},
+			visitedAllRooms: false,
 		};
 	}
 
@@ -34,6 +49,29 @@ class GameState {
 
 	setEyesOpen(left, middle, right) {
 		this.currentState.eyesOpen = { left, middle, right };
+	}
+
+	getCode() {
+		return this.currentState.code;
+	}
+
+	setCode(left, middle, right) {
+		this.currentState.code = { left, middle, right };
+	}
+
+	openSafe() {
+		if (!this.currentState.visitedAllRooms) {
+			return false;
+		}
+
+		const solution = this.currentState.solution;
+		const code = this.currentState.code;
+
+		if (solution.left === code.left &&
+				solution.middle === code.middle &&
+				solution.right === code.right) {
+			return true;
+		}
 	}
 
 	getKeyMappings() {
