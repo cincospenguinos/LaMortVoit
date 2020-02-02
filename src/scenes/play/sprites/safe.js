@@ -7,7 +7,7 @@ export default class Safe extends Phaser.Physics.Arcade.Sprite {
 		super(scene, opts.x, opts.y, CONST.keys.safe);
 
 		scene.add.existing(this);
-		scene.physics.add.existing(this);
+		scene.physics.add.existing(this, true);
 
 		this.presentAccordingTo(GameState.getEyes());
 	}

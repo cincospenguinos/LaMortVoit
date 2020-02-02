@@ -22,10 +22,13 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	create() {
+		this.player = new Player(this, { x: 3, y: 3 });
 		this.safe = new Safe(this, { x: 50, y: 25 });
 
+		this.physics.add.collider(this.player, this.safe);
+
 		this._createAnimations();
-		this.inputService = new InputService(new Player(this, { x: 3, y: 3 }));
+		this.inputService = new InputService(this.player);
 
 		const keyMappings = GameState.getKeyMappings();
 		this.inputKeys = this.input.keyboard.addKeys(keyMappings);

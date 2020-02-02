@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import GameState from '../../state/state.js';
 import FullEye from '../../sprites/fullEye.js';
+import KeyboardSprite from '../../sprites/keyboardSprite.js';
 import CONST from '../../constants/index.js';
 
 export default class VoirScene extends Phaser.Scene {
@@ -29,9 +30,9 @@ export default class VoirScene extends Phaser.Scene {
 	}
 
 	preload() {
-		const { fullEyes, playButton } = CONST.sprites;
+		const { fullEyes, backIcon } = CONST.sprites;
 
-		this.load.image(CONST.keys.playButton, playButton.location);
+		this.load.image(CONST.keys.backIcon, backIcon.location);
 		this.load.spritesheet(CONST.keys.fullEyes, fullEyes.location, fullEyes.config);
 	}
 
@@ -41,8 +42,11 @@ export default class VoirScene extends Phaser.Scene {
 		this.middleEye = new FullEye(this, { x: 42, y: 28, isOpen: eyeState.middle });
 		this.rightEye = new FullEye(this,{ x: 74, y: 36, isOpen: eyeState.right });
 
+		const backIcon = this.add.image(3, 3, CONST.keys.backIcon);
+
 		const keyMappings = GameState.getKeyMappings();
 		this.inputKeys = this.input.keyboard.addKeys(keyMappings);
+		new KeyboardSprite(this, { x: 8, y: 3, currentKey: keyMappings.back });
 	}
 
 	update() {

@@ -1,12 +1,18 @@
 const spriteDir = '/data/sprites';
 
+const iconConfig = {
+	frameWidth: 5,
+	frameHeight: 5,
+};
+
 const sprites = {
+	backIcon: {
+		location: `${spriteDir}/backIcon.png`,
+		config: iconConfig,
+	},
 	cogWheel: {
 		location: `${spriteDir}/cogWheel.png`,
-		config: {
-			frameWidth: 5,
-			frameHeight: 5,
-		},
+		config: iconConfig,
 	},
 	fullEyes: {
 		location: `${spriteDir}/fullEyes.png`,
@@ -31,10 +37,7 @@ const sprites = {
 	},
 	playButton: {
 		location: `${spriteDir}/playButton.png`,
-		config: {
-			frameWidth: 5,
-			frameHeight: 5,
-		},
+		config: iconConfig,
 	},
 	player: {
 		location: `${spriteDir}/player.png`,
