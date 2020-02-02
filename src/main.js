@@ -7,11 +7,18 @@ const config = {
 	width: 84,
 	height: 48,
 	parent: 'game',
+	pixelArt: true,
 	scale: {
-  	mode: Phaser.Scale.AUTO,
+  	mode: Phaser.Scale.FIT,
   	autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene,
+  physics: {
+  	default: 'arcade',
+  	arcade: {
+  		debug: true,
+  	},
+  }
 };
 
 const game = new Phaser.Game(config);
