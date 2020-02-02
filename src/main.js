@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import MenuScene from './scenes/menu/menuScene.js';
+import ConfigScene from './scenes/config/configScene.js';
 
-const scene = [MenuScene];
+const scene = [MenuScene, ConfigScene];
 
 const config = {
 	width: 84,

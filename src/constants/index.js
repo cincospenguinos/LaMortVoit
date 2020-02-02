@@ -9,6 +9,7 @@ const extractKeysFrom = (obj) => {
 
 const scenes = {
 	menuScene: 'MenuScene',
+	configScene: 'ConfigScene',
 };
 
 const colors = {

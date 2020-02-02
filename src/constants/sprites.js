@@ -1,11 +1,11 @@
 const spriteDir = '/data/sprites';
 
 const sprites = {
-	tarotDeath: {
-		location: `${spriteDir}/death.png`,
+	cogWheel: {
+		location: `${spriteDir}/cogWheel.png`,
 		config: {
-			frameWidth: 84,
-			frameHeight: 147,
+			frameWidth: 5,
+			frameHeight: 5,
 		},
 	},
 	fullEyes: {
@@ -15,6 +15,27 @@ const sprites = {
 			frameHeight: 9,
 		},
 	},
+	keyboardSprites: {
+		location: `${spriteDir}/keyboardSpriteheet.png`,
+		config: {
+			frameWidth: 5,
+			frameHeight: 5,
+		}
+	},
+	menuText: {
+		location: `${spriteDir}/menuText.png`,
+		config: {
+			frameWidth: 51,
+			frameHeight: 17,
+		},
+	},
+	playButton: {
+		location: `${spriteDir}/playButton.png`,
+		config: {
+			frameWidth: 5,
+			frameHeight: 5,
+		},
+	},
 	player: {
 		location: `${spriteDir}/player.png`,
 		config: {
@@ -22,11 +43,11 @@ const sprites = {
 			frameHeight: 8,
 		},
 	},
-	menuText: {
-		location: `${spriteDir}/menuText.png`,
+	tarotDeath: {
+		location: `${spriteDir}/tarotDeath.png`,
 		config: {
-			frameWidth: 51,
-			frameHeight: 17,
+			frameWidth: 84,
+			frameHeight: 147,
 		},
 	},
 };
