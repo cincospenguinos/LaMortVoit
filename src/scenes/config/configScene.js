@@ -6,9 +6,19 @@ export default class ConfigScene extends Phaser.Scene {
 		super({ key: CONST.keys.configScene });
 	}
 
-	preload() {}
+	init() {
+		this.cameras.main.setBackgroundColor(CONST.colors.light);
+	}
 
-	create() {}
+	preload() {
+		const { keyboardSprites } = CONST.sprites;
+
+		this.load.spritesheet(CONST.keys.keyboardSprites, keyboardSprites.location, keyboardSprites.config);
+	}
+
+	create() {
+		
+	}
 
 	update() {}
 }

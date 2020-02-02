@@ -15,7 +15,13 @@ const scenes = {
 const colors = {
 	dark: '#43523d',
 	light: '#c7f0d8',
-}
+};
+
+const configTypes = {
+	default: 'default',
+	nokia: 'nokia',
+	keypad: 'keypad',
+};
 
 const constants = {
 	audio,
@@ -25,6 +31,7 @@ const constants = {
 		...extractKeysFrom(sprites),
 		...extractKeysFrom(colors),
 		...extractKeysFrom(audio),
+		...extractKeysFrom(configTypes),
 	},
 	sprites,
 };

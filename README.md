@@ -1,7 +1,7 @@
 # La Mort Voit
 
 - [ ] Menu Scene is done
-	- [ ] Text shows
-	- [ ] Theme plays
-	- [ ] Eyes open and shut on beat
+	- [x] Text shows
+	- [x] Theme plays
+	- [x] Eyes open and shut on beat
 - [ ]

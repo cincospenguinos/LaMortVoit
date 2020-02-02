@@ -16,7 +16,7 @@ const sprites = {
 		},
 	},
 	keyboardSprites: {
-		location: `${spriteDir}/keyboardSpriteheet.png`,
+		location: `${spriteDir}/keyboardSpritesheet.png`,
 		config: {
 			frameWidth: 5,
 			frameHeight: 5,
