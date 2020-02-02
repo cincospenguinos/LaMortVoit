@@ -15,12 +15,25 @@ class GameState {
 	constructor() {
 		this.currentState = {
 			inputKeys: inputHelpers.inputKeysFor('default'),
+			eyesOpen: {
+				left: true,
+				middle: false,
+				right: true,
+			},
 		};
 	}
 
 	setInputConfig(configName) {
 		const inputKeys = inputHelpers.inputKeysFor(configName);
 		this.currentState.inputKeys = inputKeys;
+	}
+
+	getEyes() {
+		return this.currentState.eyesOpen;
+	}
+
+	setEyesOpen(left, middle, right) {
+		this.currentState.eyesOpen = { left, middle, right };
 	}
 
 	getKeyMappings() {

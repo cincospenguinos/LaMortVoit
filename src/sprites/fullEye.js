@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
-import CONST from '../../constants/index.js';
+import CONST from '../constants/index.js';
 
 export default class FullEye extends Phaser.GameObjects.Sprite {
 	constructor(scene, opts = {}) {
-		super(scene, opts.x, opts.y, CONST.keys.fullEyes, 0);
+		const frame = !!opts.isOpen ? 1 : 0;
+		super(scene, opts.x, opts.y, CONST.keys.fullEyes, frame);
 		scene.add.existing(this);
 	}
 
@@ -14,5 +15,9 @@ export default class FullEye extends Phaser.GameObjects.Sprite {
 		}
 		
 		this.setFrame(0);
+	}
+
+	isOpen() {
+		return this.frame.name === 1;
 	}
 }

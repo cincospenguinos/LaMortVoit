@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import GameState from '../../state/state.js';
 import CONST from '../../constants/index.js';
-import FullEye from './fullEye.js';
+import FullEye from '../../sprites/fullEye.js';
 import KeyboardSprite from '../../sprites/keyboardSprite.js';
 
 export default class MenuScene extends Phaser.Scene {

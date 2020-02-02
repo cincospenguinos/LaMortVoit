@@ -12,6 +12,7 @@ const scenes = {
 	menuScene: 'MenuScene',
 	configScene: 'ConfigScene',
 	playScene: 'PlayScene',
+	voirScene: 'VoirScene',
 };
 
 const colors = {
