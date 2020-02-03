@@ -10,7 +10,7 @@ export default class Safe extends Phaser.Physics.Arcade.Sprite {
 		scene.add.existing(this);
 		scene.physics.add.existing(this, true);
 
-		this.indicator = new KeyboardSprite(scene, { x: 50, y: 14 })
+		this.indicator = new KeyboardSprite(scene, { x: opts.x, y: opts.y - 10 })
 		this.indicator.setDisplayedKey(GameState.getKeyMappings().select);
 		this.indicator.visible = false;
 

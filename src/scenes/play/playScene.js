@@ -13,18 +13,35 @@ export default class PlayScene extends Phaser.Scene {
 
 	init(data) {
 		this.cameras.main.setBackgroundColor(CONST.colors.light);
+
+		this.currentMap = CONST.maps[data.mapKey] || CONST.maps.hub;
 	}
 
 	preload() {
-		const { player, safe } = CONST.sprites;
+		const { player, safe, gameTilesheet } = CONST.sprites;
 
+		this.load.image(CONST.keys.gameTilesheet, gameTilesheet.location);
 		this.load.spritesheet(CONST.keys.player, player.location, player.config);
 		this.load.spritesheet(CONST.keys.safe, safe.location, safe.config);
+
+		this.load.tilemapTiledJSON(this.currentMap.key, this.currentMap.location);
 	}
 
 	create() {
-		this.player = new Player(this, { x: 3, y: 3 });
-		this.safe = new Safe(this, { x: 50, y: 25 });
+		const map = this.add.tilemap(this.currentMap.key);
+		this.physics.world.bounds.width = map.widthInPixels;
+		this.physics.world.bounds.height = map.widthInPixels;
+
+		const tileset = map.addTilesetImage(CONST.keys.gameTilesheet);
+		const floor = map.createStaticLayer(this.currentMap.layers.walls, tileset);
+
+		this.player = new Player(this, { x: 5, y: 72 });
+		this.cameras.main.startFollow(this.player);
+
+		if (this.currentMap.objects.safe) {
+			this.safe = new Safe(this, this.currentMap.objects.safe);
+			this.physics.add.collider(this.player, this.safe);
+		}
 
 		this.physics.add.collider(this.player, this.safe);
 
@@ -74,6 +91,10 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	get playerCanOpenSafe() {
+		if (!this.safe) {
+			return false;
+		}
+
 		const playerSafeDistance = Phaser.Math.Distance.BetweenPoints(this.player, this.safe);
 		return playerSafeDistance <= 12;
 	}

@@ -21,6 +21,9 @@ const sprites = {
 			frameHeight: 9,
 		},
 	},
+	gameTilesheet: {
+		location: `${spriteDir}/gameTilesheet.png`,
+	},
 	keyboardSprites: {
 		location: `${spriteDir}/keyboardSpritesheet.png`,
 		config: {

@@ -1,6 +1,7 @@
 import sprites from './sprites.js';
 import audio from './audio.js';
 import animations from './animations.js';
+import maps from './maps.js';
 
 const extractKeysFrom = (obj) => {
 	const keys = {};
@@ -38,7 +39,9 @@ const constants = {
 		...extractKeysFrom(audio),
 		...extractKeysFrom(configTypes),
 		...extractKeysFrom(animations),
+		...extractKeysFrom(maps),
 	},
+	maps,
 	sprites,
 };
 
