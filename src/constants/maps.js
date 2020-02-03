@@ -1,8 +1,8 @@
-const mapLocation = '/data/maps';
+const mapLocation = 'data/maps';
 
 const tilesheet = {
 	name: 'gameTilesheet',
-	json: '/data/tilesheets/gameTilesheet.json',
+	json: 'data/tilesheets/gameTilesheet.json',
 };
 
 const maps = {

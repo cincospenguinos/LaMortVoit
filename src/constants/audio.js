@@ -1,4 +1,4 @@
-const audioLocation = '/data/sound';
+const audioLocation = 'data/sound';
 
 const audio = {
 	theme: {

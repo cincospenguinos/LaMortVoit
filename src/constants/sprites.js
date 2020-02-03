@@ -1,4 +1,4 @@
-const spriteDir = '/data/sprites';
+const spriteDir = 'data/sprites';
 
 const iconConfig = {
 	frameWidth: 5,
