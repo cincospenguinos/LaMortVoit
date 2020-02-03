@@ -31,19 +31,23 @@ export default class PlayScene extends Phaser.Scene {
 
 	create() {
 		const doorGroup = this._createMap();
-		this.player = new Player(this, { x: 5, y: 72 });
+
+		const locations = GameState.locationsFor(this.currentMap.key);
+		this.player = new Player(this, locations.player);
 		this.cameras.main.startFollow(this.player);
 
+		this.physics.add.overlap(this.player, doorGroup);
+
 		this.physics.add.overlap(this.player, doorGroup, (player, door) => {
-			console.log('Go to a new area!');
+			GameState.setLastPlayerLoc(this.currentMap.key, door.playerX, door.playerY);
+			this.scene.pause();
+			this.scene.restart({ mapKey: door.transportsTo });
 		});
 
 		if (this.currentMap.objects.safe) {
 			this.safe = new Safe(this, this.currentMap.objects.safe);
 			this.physics.add.collider(this.player, this.safe);
 		}
-
-		this.physics.add.collider(this.player, this.safe);
 
 		this._createAnimations();
 		this.inputService = new InputService(this.player);
@@ -93,18 +97,26 @@ export default class PlayScene extends Phaser.Scene {
 		map.createStaticLayer(this.currentMap.layers.walls, tileset);
 		map.createStaticLayer(this.currentMap.layers.floor, tileset);
 
-		const doors = map.getObjectLayer(this.currentMap.layers.doors);
 		const doorGroup = this.physics.add.group();
 
-		doors.objects.forEach((doorObj) => {
-			const door = new Door(this, {
-				x: doorObj.x,
-				y: doorObj.y,
-				transportsTo: doorObj.transportsTo
+		map.getObjectLayer(this.currentMap.layers.doors)
+			.objects.forEach((doorObj) => {
+				const properties = {};
+				doorObj.properties.forEach((prop) => {
+					properties[prop.name] = prop.value;
+				});
+
+				const door = new Door(this, {
+					x: doorObj.x,
+					y: doorObj.y,
+					// transportsTo: doorObj.properties[0].value
+					...properties,
+				});
+
+				doorGroup.add(door);
 			});
 
-			doorGroup.add(door);
-		});
+		return doorGroup
 	}
 
 	_updateSafeIndicator() {

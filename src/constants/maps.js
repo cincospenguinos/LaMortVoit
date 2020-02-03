@@ -5,21 +5,31 @@ const tilesheet = {
 	json: 'data/tilesheets/gameTilesheet.json',
 };
 
+const layers = {
+	doors: 'doorLayer',
+	floor: 'floorLayer',
+	walls: 'wallLayer',
+	flame: 'flameLayer',
+};
+
 const maps = {
 	hub: {
 		key: 'hub',
 		location: `${mapLocation}/hub.json`,
-		layers: {
-			doors: 'doorLayer',
-			floor: 'floorLayer',
-			walls: 'wallLayer',
-		},
 		objects: {
 			safe: {
 				x: 36,
 				y: 50,
 			},
 		},
+		layers,
+		tilesheet,
+	},
+	left: {
+		key: 'left',
+		layers,
+		location: `${mapLocation}/left.json`,
+		objects: {},
 		tilesheet,
 	},
 };

@@ -44,7 +44,7 @@ class GameState {
 					player: { x: 5, y: 72 },
 				},
 				left: {
-					player: {},
+					player: { x: 75, y: 75 },
 				},
 				middle: {
 					player: {},
@@ -79,6 +79,11 @@ class GameState {
 
 	locationsFor(roomKey) {
 		return this.currentState.locationsPerRoom[roomKey];
+	}
+
+	setLastPlayerLoc(roomKey, x, y) {
+		this.currentState.locationsPerRoom[roomKey].player.x = x;
+		this.currentState.locationsPerRoom[roomKey].player.y = y;
 	}
 
 	openSafe() {

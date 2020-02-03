@@ -21,6 +21,13 @@ const sprites = {
 			frameHeight: 10,
 		}
 	},
+	flames: {
+		location: `${spriteDir}/flames.png`,
+		config: {
+			frameWidth: 10,
+			frameHeight: 10,
+		}
+	},
 	fullEyes: {
 		location: `${spriteDir}/fullEyes.png`,
 		config: {
