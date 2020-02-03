@@ -14,6 +14,13 @@ const sprites = {
 		location: `${spriteDir}/cogWheel.png`,
 		config: iconConfig,
 	},
+	door: {
+		location: `${spriteDir}/door.png`,
+		config: {
+			frameWidth: 10,
+			frameHeight: 10,
+		}
+	},
 	fullEyes: {
 		location: `${spriteDir}/fullEyes.png`,
 		config: {

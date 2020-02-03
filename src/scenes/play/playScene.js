@@ -3,6 +3,7 @@ import CONST from '../../constants/index.js';
 import GameState from '../../state/state.js';
 import Player from './sprites/player.js';
 import Safe from './sprites/safe.js';
+import Door from './sprites/door.js';
 import KeyboardSprite from '../../sprites/keyboardSprite.js';
 import InputService from './services/inputService.js';
 
@@ -14,29 +15,28 @@ export default class PlayScene extends Phaser.Scene {
 	init(data) {
 		this.cameras.main.setBackgroundColor(CONST.colors.light);
 
-		this.currentMap = CONST.maps[data.mapKey] || CONST.maps.hub;
+		this.currentMap = CONST.maps[data.mapKey];
 	}
 
 	preload() {
-		const { player, safe, gameTilesheet } = CONST.sprites;
+		const { player, safe, gameTilesheet, door } = CONST.sprites;
 
 		this.load.image(CONST.keys.gameTilesheet, gameTilesheet.location);
 		this.load.spritesheet(CONST.keys.player, player.location, player.config);
 		this.load.spritesheet(CONST.keys.safe, safe.location, safe.config);
+		this.load.spritesheet(CONST.keys.door, door.location, door.config);
 
 		this.load.tilemapTiledJSON(this.currentMap.key, this.currentMap.location);
 	}
 
 	create() {
-		const map = this.add.tilemap(this.currentMap.key);
-		this.physics.world.bounds.width = map.widthInPixels;
-		this.physics.world.bounds.height = map.widthInPixels;
-
-		const tileset = map.addTilesetImage(CONST.keys.gameTilesheet);
-		const floor = map.createStaticLayer(this.currentMap.layers.walls, tileset);
-
+		const doorGroup = this._createMap();
 		this.player = new Player(this, { x: 5, y: 72 });
 		this.cameras.main.startFollow(this.player);
+
+		this.physics.add.overlap(this.player, doorGroup, (player, door) => {
+			console.log('Go to a new area!');
+		});
 
 		if (this.currentMap.objects.safe) {
 			this.safe = new Safe(this, this.currentMap.objects.safe);
@@ -67,7 +67,9 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	eyesModified() {
-		this.safe.presentAccordingTo(GameState.getEyes());
+		if (this.safe) {
+			this.safe.presentAccordingTo(GameState.getEyes());
+		}
 	}
 
 	_createAnimations() {
@@ -80,6 +82,29 @@ export default class PlayScene extends Phaser.Scene {
 		this.anims.create(playerVert);
 		this.anims.create(playerLeft);
 		this.anims.create(playerRight);
+	}
+
+	_createMap() {
+		const map = this.add.tilemap(this.currentMap.key);
+		this.physics.world.bounds.width = map.widthInPixels;
+		this.physics.world.bounds.height = map.heightInPixels;
+
+		const tileset = map.addTilesetImage(CONST.keys.gameTilesheet);
+		map.createStaticLayer(this.currentMap.layers.walls, tileset);
+		map.createStaticLayer(this.currentMap.layers.floor, tileset);
+
+		const doors = map.getObjectLayer(this.currentMap.layers.doors);
+		const doorGroup = this.physics.add.group();
+
+		doors.objects.forEach((doorObj) => {
+			const door = new Door(this, {
+				x: doorObj.x,
+				y: doorObj.y,
+				transportsTo: doorObj.transportsTo
+			});
+
+			doorGroup.add(door);
+		});
 	}
 
 	_updateSafeIndicator() {

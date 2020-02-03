@@ -34,7 +34,25 @@ class GameState {
 				middle: 0,
 				right: 0,
 			},
-			visitedAllRooms: false,
+			roomsVisited: {
+				left: false,
+				middle: false,
+				right: false,
+			},
+			locationsPerRoom: {
+				hub: {
+					player: { x: 5, y: 72 },
+				},
+				left: {
+					player: {},
+				},
+				middle: {
+					player: {},
+				},
+				right: {
+					player: {},
+				},
+			},
 		};
 	}
 
@@ -59,8 +77,12 @@ class GameState {
 		this.currentState.code = { left, middle, right };
 	}
 
+	locationsFor(roomKey) {
+		return this.currentState.locationsPerRoom[roomKey];
+	}
+
 	openSafe() {
-		if (!this.currentState.visitedAllRooms) {
+		if (!this.visitedAllRooms) {
 			return false;
 		}
 
@@ -72,6 +94,11 @@ class GameState {
 				solution.right === code.right) {
 			return true;
 		}
+	}
+
+	get visitedAllRooms() {
+		const { left, middle, right } = this.currentState.roomsVisited;
+		return left && middle && right;
 	}
 
 	getKeyMappings() {

@@ -41,7 +41,7 @@ export default class MenuScene extends Phaser.Scene {
 	update() {
 		if (this.inputKeys.select.isDown) {
 			this.music.stop();
-			this.scene.start(CONST.keys.playScene, { stage: 0 });
+			this.scene.start(CONST.keys.playScene, { mapKey: CONST.keys.hub });
 		}
 
 		if (this.inputKeys.options.isDown) {
