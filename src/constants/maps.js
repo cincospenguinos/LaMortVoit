@@ -6,6 +6,7 @@ const tilesheet = {
 };
 
 const layers = {
+	skull: 'skullLayer',
 	doors: 'doorLayer',
 	floor: 'floorLayer',
 	walls: 'wallLayer',

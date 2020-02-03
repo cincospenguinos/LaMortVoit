@@ -37,11 +37,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		}
 
 		if (xVel > 0) {
-			this.anims.play('playerRight', true);
+			this.anims.play(CONST.keys.playerRight, true);
 		} else if (xVel < 0) {
-			this.anims.play('playerLeft', true);
+			this.anims.play(CONST.keys.playerLeft, true);
 		} else if (yVel) {
-			this.anims.play('playerVert', true);
+			this.anims.play(CONST.keys.playerVert, true);
 		} else {
 			this.setFrame(1);
 		}

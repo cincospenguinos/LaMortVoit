@@ -12,7 +12,7 @@ const mappings = {
 };
 
 const getRandomInt = () => {
-	return Math.random() * Math.floor(10);
+	return Math.floor(Math.random() * 10);
 }
 
 class GameState {
@@ -34,11 +34,6 @@ class GameState {
 				middle: 0,
 				right: 0,
 			},
-			roomsVisited: {
-				left: false,
-				middle: false,
-				right: false,
-			},
 			locationsPerRoom: {
 				hub: {
 					player: { x: 5, y: 72 },
@@ -52,6 +47,11 @@ class GameState {
 				right: {
 					player: {},
 				},
+			},
+			skullsRetrieved: {
+				left: false,
+				middle: false,
+				right: false,
 			},
 		};
 	}
@@ -77,6 +77,14 @@ class GameState {
 		this.currentState.code = { left, middle, right };
 	}
 
+	get solution() {
+		return this.currentState.solution;
+	}
+
+	getSolutionFor(textKey) {
+		this.currentState.solution[textKey];
+	}
+
 	locationsFor(roomKey) {
 		return this.currentState.locationsPerRoom[roomKey];
 	}
@@ -87,7 +95,7 @@ class GameState {
 	}
 
 	openSafe() {
-		if (!this.visitedAllRooms) {
+		if (!this.retrievedAllSkulls) {
 			return false;
 		}
 
@@ -101,8 +109,12 @@ class GameState {
 		}
 	}
 
-	get visitedAllRooms() {
-		const { left, middle, right } = this.currentState.roomsVisited;
+	retrievedSkull(key) {
+		this.currentState.skullsRetrieved[key] = true;
+	}
+
+	get retrievedAllSkulls() {
+		const { left, middle, right } = this.currentState.skullsRetrieved;
 		return left && middle && right;
 	}
 

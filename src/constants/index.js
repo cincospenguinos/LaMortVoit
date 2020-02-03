@@ -2,6 +2,7 @@ import sprites from './sprites.js';
 import audio from './audio.js';
 import animations from './animations.js';
 import maps from './maps.js';
+import text from './text.js';
 
 const extractKeysFrom = (obj) => {
 	const keys = {};
@@ -15,6 +16,7 @@ const scenes = {
 	playScene: 'PlayScene',
 	voirScene: 'VoirScene',
 	safeScene: 'SafeScene',
+	textScene: 'TextScene',
 };
 
 const colors = {
@@ -40,9 +42,11 @@ const constants = {
 		...extractKeysFrom(configTypes),
 		...extractKeysFrom(animations),
 		...extractKeysFrom(maps),
+		...extractKeysFrom(text),
 	},
 	maps,
 	sprites,
+	text,
 };
 
 export default constants;

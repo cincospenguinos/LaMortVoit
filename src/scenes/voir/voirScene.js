@@ -38,8 +38,18 @@ export default class VoirScene extends Phaser.Scene {
 
 	create() {
 		const eyeState = GameState.getEyes();
+		const solution = GameState.solution;
+
+		this.leftSol = new KeyboardSprite(this, { x: 10, y: 28, currentKey: solution.left });
+		this.leftSol.visible = false;
 		this.leftEye = new FullEye(this, { x: 10, y: 36, isOpen: eyeState.left });
+
+		this.middleSol = new KeyboardSprite(this, { x: 42, y: 20, currentKey: solution.middle });
+		this.middleSol.visible = false;
 		this.middleEye = new FullEye(this, { x: 42, y: 28, isOpen: eyeState.middle });
+
+		this.rightSol = new KeyboardSprite(this, { x: 74, y: 28, currentKey: solution.right });
+		this.rightSol.visible = false;
 		this.rightEye = new FullEye(this, { x: 74, y: 36, isOpen: eyeState.right });
 
 		const backIcon = this.add.image(3, 3, CONST.keys.backIcon);
@@ -59,6 +69,23 @@ export default class VoirScene extends Phaser.Scene {
 			GameState.setEyesOpen(this.leftEye.isOpen(), this.middleEye.isOpen(), this.rightEye.isOpen());
 			this.scene.get(CONST.keys.playScene).eyesModified();
 			this.scene.switch(CONST.keys.playScene);
+		}
+	}
+
+	skullRetrieved(location) {
+		switch(location) {
+			case 'left': {
+				this.leftSol.visible = true;
+				break;
+			}
+			case 'middle': {
+				this.middleSol.visible = true;
+				break;
+			}
+			case 'right': {
+				this.rightSol.visible = true;
+				break;
+			}
 		}
 	}
 

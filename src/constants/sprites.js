@@ -77,6 +77,13 @@ const sprites = {
 			frameHeight: 17,
 		}
 	},
+	skull: {
+		location: `${spriteDir}/skull.png`,
+		config: {
+			frameWidth: 8,
+			frameHeight: 6,
+		}
+	},
 	tarotDeath: {
 		location: `${spriteDir}/tarotDeath.png`,
 		config: {

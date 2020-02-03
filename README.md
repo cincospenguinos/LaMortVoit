@@ -2,7 +2,6 @@
 
 ## MANDATORY
 
-- [ ] Create first level
 - [ ] Create second level
 - [ ] Create third level
 
@@ -29,3 +28,5 @@
 	- [x] Eyes open and shut on beat
 - [x] Create hub level
 - [x] Create three doors
+- [x] Create first level
+- [x] Add key value to voir scene when skull is retrieved

@@ -1,10 +1,7 @@
 import Phaser from 'phaser';
 import CONST from '../../constants/index.js';
 import GameState from '../../state/state.js';
-import Player from './sprites/player.js';
-import Safe from './sprites/safe.js';
-import Door from './sprites/door.js';
-import Flame from './sprites/flame.js';
+import { Door, Flame, Player, Safe, Skull } from './sprites/index.js';
 import KeyboardSprite from '../../sprites/keyboardSprite.js';
 import InputService from './services/inputService.js';
 
@@ -20,19 +17,20 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	preload() {
-		const { player, safe, gameTilesheet, door, flames } = CONST.sprites;
+		const { player, safe, gameTilesheet, door, flames, skull } = CONST.sprites;
 
 		this.load.image(CONST.keys.gameTilesheet, gameTilesheet.location);
 		this.load.spritesheet(CONST.keys.player, player.location, player.config);
 		this.load.spritesheet(CONST.keys.safe, safe.location, safe.config);
 		this.load.spritesheet(CONST.keys.door, door.location, door.config);
 		this.load.spritesheet(CONST.keys.flames, flames.location, flames.config);
+		this.load.spritesheet(CONST.keys.skull, skull.location, skull.config);
 
 		this.load.tilemapTiledJSON(this.currentMap.key, this.currentMap.location);
 	}
 
 	create() {
-		const { doorGroup, flameGroup } = this._createMap();
+		const { doorGroup, flameGroup, skull } = this._createMap();
 
 		this.flameGroup = flameGroup;
 
@@ -46,6 +44,13 @@ export default class PlayScene extends Phaser.Scene {
 			GameState.setLastPlayerLoc(this.currentMap.key, door.playerX, door.playerY);
 			this.scene.pause();
 			this.scene.restart({ mapKey: door.transportsTo });
+		});
+
+		this.physics.add.overlap(this.player, skull, (player, skull) => {
+			GameState.retrievedSkull(this.currentMap.key);
+			this.scene.get(CONST.keys.textScene).setTextKey(skull.textKey);
+			skull.destroy();
+			this.scene.switch(CONST.keys.textScene);
 		});
 
 		if (this.currentMap.objects.safe) {
@@ -87,17 +92,19 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	_createAnimations() {
-		const { playerVert, playerLeft, playerRight, flamesAnim } = CONST.animations;
+		const { playerVert, playerLeft, playerRight, flamesAnim, skullAnim } = CONST.animations;
 
 		playerVert.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 0, end: 2 });
 		playerLeft.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 3, end: 4 });
 		playerRight.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 5, end: 6 });
 		flamesAnim.frames = this.anims.generateFrameNumbers(CONST.keys.flames, { start: 0, end: 4 });
+		skullAnim.frames = this.anims.generateFrameNumbers(CONST.keys.skull, { start: 0, end: 1 });
 
 		this.anims.create(playerVert);
 		this.anims.create(playerLeft);
 		this.anims.create(playerRight);
 		this.anims.create(flamesAnim);
+		this.anims.create(skullAnim);
 	}
 
 	_createMap() {
@@ -109,14 +116,21 @@ export default class PlayScene extends Phaser.Scene {
 		map.createStaticLayer(this.currentMap.layers.walls, tileset);
 		map.createStaticLayer(this.currentMap.layers.floor, tileset);
 
+		const extractProps = (obj) => {
+			const properties = {};
+
+			obj.properties.forEach((prop) => {
+				properties[prop.name] = prop.value;
+			});
+
+			return properties;
+		}
+
 		const doorGroup = this.physics.add.group();
 
 		map.getObjectLayer(this.currentMap.layers.doors)
 			.objects.forEach((doorObj) => {
-				const properties = {};
-				doorObj.properties.forEach((prop) => {
-					properties[prop.name] = prop.value;
-				});
+				const properties = extractProps(doorObj);
 
 				const door = new Door(this, {
 					x: doorObj.x,
@@ -134,10 +148,7 @@ export default class PlayScene extends Phaser.Scene {
 
 		map.getObjectLayer(this.currentMap.layers.flame)
 			.objects.forEach((flameObj) => {
-				const properties = {};
-				flameObj.properties.forEach((prop) => {
-					properties[prop.name] = prop.value;
-				});
+				const properties = extractProps(flameObj);
 
 				const flame = new Flame(this, {
 					x: flameObj.x,
@@ -150,7 +161,20 @@ export default class PlayScene extends Phaser.Scene {
 				flameGroup.add(flame);
 			});
 
-		return { doorGroup, flameGroup };
+		let skull = null;
+
+		map.getObjectLayer(this.currentMap.layers.skull)
+			.objects.forEach((skullObj) => {
+				const properties = extractProps(skullObj);
+
+				skull = new Skull(this, {
+					x: skullObj.x,
+					y: skullObj.y,
+					...properties,
+				});
+			});
+
+		return { doorGroup, flameGroup, skull };
 	}
 
 	_updateSafeIndicator() {

@@ -4,8 +4,9 @@ import ConfigScene from './scenes/config/configScene.js';
 import PlayScene from './scenes/play/playScene.js';
 import VoirScene from './scenes/voir/voirScene.js';
 import SafeScene from './scenes/safe/safeScene.js';
+import TextScene from './scenes/text/textScene.js';
 
-const scene = [MenuScene, ConfigScene, PlayScene, VoirScene, SafeScene];
+const scene = [MenuScene, ConfigScene, PlayScene, VoirScene, SafeScene, TextScene];
 
 const config = {
 	width: 84,

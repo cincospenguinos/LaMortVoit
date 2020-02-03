@@ -24,7 +24,13 @@ const animations = {
 		frameRate,
 		repeat: -1,
 		yoyo: false,
-	}
+	},
+	skullAnim: {
+		key: 'skullAnim',
+		frameRate: 1,
+		repeat: -1,
+		yoyo: false,
+	},
 };
 
 export default animations;
