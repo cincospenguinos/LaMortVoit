@@ -4,6 +4,7 @@ import GameState from '../../state/state.js';
 import Player from './sprites/player.js';
 import Safe from './sprites/safe.js';
 import Door from './sprites/door.js';
+import Flame from './sprites/flame.js';
 import KeyboardSprite from '../../sprites/keyboardSprite.js';
 import InputService from './services/inputService.js';
 
@@ -19,24 +20,27 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	preload() {
-		const { player, safe, gameTilesheet, door } = CONST.sprites;
+		const { player, safe, gameTilesheet, door, flames } = CONST.sprites;
 
 		this.load.image(CONST.keys.gameTilesheet, gameTilesheet.location);
 		this.load.spritesheet(CONST.keys.player, player.location, player.config);
 		this.load.spritesheet(CONST.keys.safe, safe.location, safe.config);
 		this.load.spritesheet(CONST.keys.door, door.location, door.config);
+		this.load.spritesheet(CONST.keys.flames, flames.location, flames.config);
 
 		this.load.tilemapTiledJSON(this.currentMap.key, this.currentMap.location);
 	}
 
 	create() {
-		const doorGroup = this._createMap();
+		const { doorGroup, flameGroup } = this._createMap();
+
+		this.flameGroup = flameGroup;
 
 		const locations = GameState.locationsFor(this.currentMap.key);
 		this.player = new Player(this, locations.player);
 		this.cameras.main.startFollow(this.player);
 
-		this.physics.add.overlap(this.player, doorGroup);
+		this.physics.add.collider(this.player, this.flameGroup);
 
 		this.physics.add.overlap(this.player, doorGroup, (player, door) => {
 			GameState.setLastPlayerLoc(this.currentMap.key, door.playerX, door.playerY);
@@ -71,21 +75,29 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	eyesModified() {
+		const eyes = GameState.getEyes();
+
 		if (this.safe) {
-			this.safe.presentAccordingTo(GameState.getEyes());
+			this.safe.presentAccordingTo(eyes);
 		}
+
+		this.flameGroup.children.entries.forEach((flame) => {
+			flame.display(eyes.left, eyes.middle, eyes.right);
+		});
 	}
 
 	_createAnimations() {
-		const { playerVert, playerLeft, playerRight } = CONST.animations;
+		const { playerVert, playerLeft, playerRight, flamesAnim } = CONST.animations;
 
 		playerVert.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 0, end: 2 });
 		playerLeft.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 3, end: 4 });
 		playerRight.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 5, end: 6 });
+		flamesAnim.frames = this.anims.generateFrameNumbers(CONST.keys.flames, { start: 0, end: 4 });
 
 		this.anims.create(playerVert);
 		this.anims.create(playerLeft);
 		this.anims.create(playerRight);
+		this.anims.create(flamesAnim);
 	}
 
 	_createMap() {
@@ -109,14 +121,36 @@ export default class PlayScene extends Phaser.Scene {
 				const door = new Door(this, {
 					x: doorObj.x,
 					y: doorObj.y,
-					// transportsTo: doorObj.properties[0].value
+					flippedVertical: doorObj.flippedVertical,
+					flippedHorizontal: doorObj.flippedHorizontal,
 					...properties,
 				});
 
 				doorGroup.add(door);
 			});
 
-		return doorGroup
+		const flameGroup = this.physics.add.staticGroup();
+		const eyes = GameState.getEyes();
+
+		map.getObjectLayer(this.currentMap.layers.flame)
+			.objects.forEach((flameObj) => {
+				const properties = {};
+				flameObj.properties.forEach((prop) => {
+					properties[prop.name] = prop.value;
+				});
+
+				const flame = new Flame(this, {
+					x: flameObj.x,
+					y: flameObj.y,
+					...properties,
+				});
+
+				flame.display(eyes.left, eyes.middle, eyes.right);
+
+				flameGroup.add(flame);
+			});
+
+		return { doorGroup, flameGroup };
 	}
 
 	_updateSafeIndicator() {

@@ -19,14 +19,14 @@ const sprites = {
 		config: {
 			frameWidth: 10,
 			frameHeight: 10,
-		}
+		},
 	},
 	flames: {
 		location: `${spriteDir}/flames.png`,
 		config: {
-			frameWidth: 10,
-			frameHeight: 10,
-		}
+			frameWidth: 8,
+			frameHeight: 9,
+		},
 	},
 	fullEyes: {
 		location: `${spriteDir}/fullEyes.png`,

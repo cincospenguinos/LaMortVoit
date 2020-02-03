@@ -9,16 +9,22 @@ const animations = {
 	},
 	playerLeft: {
 		key: 'playerLeft',
-		frameRate: 6,
+		frameRate,
 		repeat: -1,
 		yoyo: false,
 	},
 	playerRight: {
 		key: 'playerRight',
-		frameRate: 6,
+		frameRate,
 		repeat: -1,
 		yoyo: false,
 	},
+	flamesAnim: {
+		key: 'flamesAnim',
+		frameRate,
+		repeat: -1,
+		yoyo: false,
+	}
 };
 
 export default animations;

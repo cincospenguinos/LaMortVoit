@@ -11,5 +11,13 @@ export default class Door extends Phaser.Physics.Arcade.Sprite {
 		this.transportsTo = opts.transportsTo;
 		this.playerX = opts.playerX;
 		this.playerY = opts.playerY;
+
+		if (opts.flippedVertical) {
+			this.flipY = true;
+		}
+
+		if (opts.flippedHorizontal) {
+			this.flipX = true;
+		}
 	}
 }

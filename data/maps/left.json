@@ -1,4 +1,4 @@
-{ "compressionlevel":-1,
+{ "compressionlevel":0,
  "editorsettings":
     {
      "export":
@@ -87,12 +87,12 @@
                         {
                          "name":"left",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"middle",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"right",
@@ -103,8 +103,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":64,
-                 "y":87
+                 "x":56.125,
+                 "y":88.125
                 }, 
                 {
                  "gid":20,
@@ -131,7 +131,7 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":64,
+                 "x":56.125,
                  "y":80
                 }, 
                 {
@@ -159,7 +159,7 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":64,
+                 "x":56,
                  "y":72
                 }, 
                 {
@@ -187,8 +187,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":72.375,
-                 "y":72
+                 "x":64,
+                 "y":64
                 }, 
                 {
                  "gid":20,
@@ -215,8 +215,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":80.375,
-                 "y":72
+                 "x":56,
+                 "y":64
                 }, 
                 {
                  "gid":20,
@@ -861,6 +861,62 @@
                  "width":8,
                  "x":24,
                  "y":8
+                }, 
+                {
+                 "gid":20,
+                 "height":8,
+                 "id":33,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"left",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"middle",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"right",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":8,
+                 "x":72,
+                 "y":64
+                }, 
+                {
+                 "gid":20,
+                 "height":8,
+                 "id":34,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"left",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"middle",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"right",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":8,
+                 "x":80,
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -869,7 +925,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":33,
+ "nextobjectid":35,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.2",
