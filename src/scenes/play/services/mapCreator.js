@@ -20,47 +20,20 @@ export default class MapCreator {
 		const doorGroup = this.scene.physics.add.group();
 		const flameGroup = this.scene.physics.add.staticGroup();
 
-		map.getObjectLayer(this.currentMap.layers.doors)
-			.objects.forEach((doorObj) => {
-				const props = this._extractPropsFrom(doorObj);
-
-				const door = new Door(this.scene, {
-					x: doorObj.x,
-					y: doorObj.y,
-					flippedVertical: doorObj.flippedVertical,
-					flippedHorizontal: doorObj.flippedHorizontal,
-					...props,
-				});
-
-				doorGroup.add(door);
+		this._prepareObjects(map, this.currentMap.layers.doors)
+			.forEach((doorProps) => {
+				doorGroup.add(new Door(this.scene, doorProps));
 			});
 
-		map.getObjectLayer(this.currentMap.layers.flame)
-			.objects.forEach((flameObj) => {
-				const props = this._extractPropsFrom(flameObj);
-
-				const flame = new Flame(this.scene, {
-					x: flameObj.x,
-					y: flameObj.y,
-					...props,
-				});
-
+		this._prepareObjects(map, this.currentMap.layers.flame)
+			.forEach((flameProps) => {
+				const flame = new Flame(this.scene, flameProps);
 				flame.display(eyes.left, eyes.middle, eyes.right);
 				flameGroup.add(flame);
 			});
 
-		let skull = null;
-
-		map.getObjectLayer(this.currentMap.layers.skull)
-			.objects.forEach((skullObj) => {
-				const props = this._extractPropsFrom(skullObj);
-
-				skull = new Skull(this.scene, {
-					x: skullObj.x,
-					y: skullObj.y,
-					...props,
-				});
-			});
+		let skull = this._prepareObjects(map, this.currentMap.layers.skull)
+			.map(skullProps => new Skull(this.scene, skullProps))[0];
 
 		return { doorGroup, flameGroup, skull };
 	}
@@ -71,6 +44,18 @@ export default class MapCreator {
 
 	set currentMap(map) {
 		this.map = map;
+	}
+
+	_prepareObjects(map, layer) {
+		return map.getObjectLayer(layer).objects.map((obj) => {
+			const props = this._extractPropsFrom(obj);
+
+			return { x: obj.x, y: obj.y,
+				flippedVertical: obj.flippedVertical,
+				flippedHorizontal: obj.flippedHorizontal,
+				...props,
+			};
+		});
 	}
 
 	_extractPropsFrom(objectLayerObj) {
