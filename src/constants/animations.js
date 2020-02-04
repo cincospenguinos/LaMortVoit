@@ -1,11 +1,17 @@
 const frameRate = 6;
 
 const animations = {
-	playerVert: {
-		key: 'playerVert',
-		repeat: -1,
+	beamOfLightAnim: {
+		key: 'beamOfLightAnim',
 		frameRate,
-		yoyo: true,
+		repeat: -1,
+		yoyo: false,
+	},
+	flamesAnim: {
+		key: 'flamesAnim',
+		frameRate,
+		repeat: -1,
+		yoyo: false,
 	},
 	playerLeft: {
 		key: 'playerLeft',
@@ -19,15 +25,21 @@ const animations = {
 		repeat: -1,
 		yoyo: false,
 	},
-	flamesAnim: {
-		key: 'flamesAnim',
-		frameRate,
+	playerVert: {
+		key: 'playerVert',
 		repeat: -1,
-		yoyo: false,
+		frameRate,
+		yoyo: true,
 	},
 	skullAnim: {
 		key: 'skullAnim',
 		frameRate: 1,
+		repeat: -1,
+		yoyo: false,
+	},
+	theCrossAnim: {
+		key: 'theCrossAnim',
+		frameRate: 6,
 		repeat: -1,
 		yoyo: false,
 	},

@@ -5,6 +5,10 @@ const texts = {
 		key: 'left',
 		location: `${textLocation}/left.json`,
 	},
+	middle: {
+		key: 'middle',
+		location: `${textLocation}/middle.json`,
+	},
 };
 
 export default texts;

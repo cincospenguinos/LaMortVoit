@@ -42,7 +42,7 @@ class GameState {
 					player: { x: 75, y: 75 },
 				},
 				middle: {
-					player: {},
+					player: { x: 42, y: 75 },
 				},
 				right: {
 					player: {},

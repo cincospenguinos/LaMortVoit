@@ -20,7 +20,8 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	preload() {
-		const { player, safe, gameTilesheet, door, flames, skull } = CONST.sprites;
+		const { player, safe, gameTilesheet, door, flames,
+			skull, originBeam, theCross, beamOfLight } = CONST.sprites;
 
 		this.load.image(CONST.keys.gameTilesheet, gameTilesheet.location);
 		this.load.spritesheet(CONST.keys.player, player.location, player.config);
@@ -28,14 +29,21 @@ export default class PlayScene extends Phaser.Scene {
 		this.load.spritesheet(CONST.keys.door, door.location, door.config);
 		this.load.spritesheet(CONST.keys.flames, flames.location, flames.config);
 		this.load.spritesheet(CONST.keys.skull, skull.location, skull.config);
+		this.load.spritesheet(CONST.keys.originBeam, originBeam.location, originBeam.config);
+		this.load.spritesheet(CONST.keys.theCross, theCross.location, theCross.config);
+		this.load.spritesheet(CONST.keys.beamOfLight, beamOfLight.location, beamOfLight.config);
 
 		this.load.tilemapTiledJSON(this.currentMap.key, this.currentMap.location);
 	}
 
 	create() {
-		this.mapCreator.create();
-		const { doorGroup, flameGroup, skull } = this.mapCreator.create();
+		this._createAnimations();
+		const eyes = GameState.getEyes();
 
+		const { beamGroup, doorGroup, flameGroup, skull, theCross } = this.mapCreator.create();
+
+		this.theCross = theCross;
+		this.beamGroup = beamGroup;
 		this.flameGroup = flameGroup;
 
 		const locations = GameState.locationsFor(this.currentMap.key);
@@ -43,6 +51,34 @@ export default class PlayScene extends Phaser.Scene {
 		this.cameras.main.startFollow(this.player);
 
 		this.physics.add.collider(this.player, this.flameGroup);
+		this.physics.add.collider(this.player, this.beamGroup);
+		this.physics.add.collider(this.player, this.theCross, (player, theCross) => {
+			const nextPos = theCross.extractNextPos();
+			theCross.setVelocity(0, 0);
+			this.player.setVelocity(0, 0);
+
+			// TODO: Sound effect for moving cross
+			this.inputService.disable();
+			theCross.push(nextPos);
+		});
+
+		const beamOfLightGroup = this.physics.add.staticGroup();
+
+		this.beamGroup.children.entries.forEach((originBeam) => {
+			const beams = originBeam.createBeams(eyes);
+			beams.forEach(beam => beamOfLightGroup.add(beam));
+		});
+
+		if (this.theCross) {
+			this.physics.add.overlap(this.theCross, beamOfLightGroup, 
+				(theCross, beam) => beam.strikingCross());
+		}
+
+		this.physics.add.overlap(this.player, beamOfLightGroup, (player, beam) => {
+			// TODO: Sound effect for hitting beam
+			this.scene.pause();
+			this.scene.restart({ mapKey: this.currentMap.key });
+		});
 
 		this.physics.add.overlap(this.player, doorGroup, (player, door) => {
 			GameState.setLastPlayerLoc(this.currentMap.key, door.playerX, door.playerY);
@@ -62,7 +98,6 @@ export default class PlayScene extends Phaser.Scene {
 			this.physics.add.collider(this.player, this.safe);
 		}
 
-		this._createAnimations();
 		this.inputService = new InputService(this.player);
 
 		const keyMappings = GameState.getKeyMappings();
@@ -72,8 +107,6 @@ export default class PlayScene extends Phaser.Scene {
 	update() {
 		this.inputService.applyInput(this.inputKeys);
 
-		this._updateSafeIndicator();
-
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.options)) {
 			this.scene.switch(CONST.keys.voirScene);
 		}
@@ -81,6 +114,8 @@ export default class PlayScene extends Phaser.Scene {
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.select) && this.playerCanOpenSafe) {
 			this.scene.switch(CONST.keys.safeScene);
 		}
+
+		this._updateSafeIndicator();
 	}
 
 	eyesModified() {
@@ -93,22 +128,42 @@ export default class PlayScene extends Phaser.Scene {
 		this.flameGroup.children.entries.forEach((flame) => {
 			flame.display(eyes.left, eyes.middle, eyes.right);
 		});
+
+		this.beamGroup.children.entries.forEach((originBeam) => {
+			originBeam.presentAccordingTo(eyes);
+		});
+	}
+
+	crossPushComplete() {
+		const eyes = GameState.getEyes();
+
+		this.beamGroup.children.entries.forEach((originBeam) => {
+			originBeam.presentAccordingTo(eyes);
+		});
+
+		this.inputService.enable();
 	}
 
 	_createAnimations() {
-		const { playerVert, playerLeft, playerRight, flamesAnim, skullAnim } = CONST.animations;
+		const { playerVert, playerLeft, playerRight,
+			flamesAnim, skullAnim, beamOfLightAnim,
+			theCrossAnim } = CONST.animations;
 
 		playerVert.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 0, end: 2 });
 		playerLeft.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 3, end: 4 });
 		playerRight.frames = this.anims.generateFrameNumbers(CONST.keys.player, { start: 5, end: 6 });
 		flamesAnim.frames = this.anims.generateFrameNumbers(CONST.keys.flames, { start: 0, end: 4 });
 		skullAnim.frames = this.anims.generateFrameNumbers(CONST.keys.skull, { start: 0, end: 1 });
+		beamOfLightAnim.frames = this.anims.generateFrameNumbers(CONST.keys.beamOfLight, { start: 0, end: 2 });
+		theCrossAnim.frames = this.anims.generateFrameNumbers(CONST.keys.theCross, { start: 0, end: 4 });
 
 		this.anims.create(playerVert);
 		this.anims.create(playerLeft);
 		this.anims.create(playerRight);
 		this.anims.create(flamesAnim);
 		this.anims.create(skullAnim);
+		this.anims.create(beamOfLightAnim);
+		this.anims.create(theCrossAnim);
 	}
 
 	_updateSafeIndicator() {

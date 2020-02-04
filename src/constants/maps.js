@@ -34,6 +34,13 @@ const maps = {
 		objects: {},
 		tilesheet,
 	},
+	middle: {
+		key: 'middle',
+		layers,
+		location: `${mapLocation}/middle.json`,
+		objects: {},
+		tilesheet,
+	},
 };
 
 export default maps;

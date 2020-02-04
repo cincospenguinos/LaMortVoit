@@ -10,15 +10,6 @@ const extractKeysFrom = (obj) => {
 	return keys;
 };
 
-const scenes = {
-	menuScene: 'MenuScene',
-	configScene: 'ConfigScene',
-	playScene: 'PlayScene',
-	voirScene: 'VoirScene',
-	safeScene: 'SafeScene',
-	textScene: 'TextScene',
-};
-
 const colors = {
 	dark: '#43523d',
 	light: '#c7f0d8',
@@ -30,10 +21,27 @@ const configTypes = {
 	keypad: 'keypad',
 };
 
+const dimensions = {
+	game: {
+		width: 84,
+		height: 48,
+	},
+};
+
+const scenes = {
+	menuScene: 'MenuScene',
+	configScene: 'ConfigScene',
+	playScene: 'PlayScene',
+	voirScene: 'VoirScene',
+	safeScene: 'SafeScene',
+	textScene: 'TextScene',
+};
+
 const constants = {
 	animations,
 	audio,
 	colors,
+	dimensions,
 	keys: {
 		...scenes,
 		...extractKeysFrom(sprites),

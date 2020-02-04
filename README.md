@@ -2,7 +2,6 @@
 
 ## MANDATORY
 
-- [ ] Create second level
 - [ ] Create third level
 
 * Figure out way to inform the player of the voir scene and how to change the eyes
@@ -14,6 +13,7 @@
 	- [ ] Walking
 	- [ ] Going through door
 	- [ ] Music during death scene
+	- [ ] Moving the cross
 - [ ] Settings scene NEEDS to be done--all the hooks are there homie
 - [ ] Hub room is too big
 
@@ -32,3 +32,4 @@
 - [x] Create three doors
 - [x] Create first level
 - [x] Add key value to voir scene when skull is retrieved
+- [x] Create second level

@@ -10,6 +10,13 @@ const sprites = {
 		location: `${spriteDir}/backIcon.png`,
 		config: iconConfig,
 	},
+	beamOfLight: {
+		location: `${spriteDir}/beamOfLight.png`,
+		config: {
+			frameWidth: 8,
+			frameHeight: 6,
+		},
+	},
 	cogWheel: {
 		location: `${spriteDir}/cogWheel.png`,
 		config: iconConfig,
@@ -50,6 +57,13 @@ const sprites = {
 		config: {
 			frameWidth: 51,
 			frameHeight: 17,
+		},
+	},
+	originBeam: {
+		location: `${spriteDir}/originBeam.png`,
+		config: {
+			frameWidth: 8,
+			frameHeight: 8,
 		},
 	},
 	playButton: {

@@ -1,5 +1,5 @@
 import CONST from '../../../constants/index.js';
-import { Door, Flame, Player, Safe, Skull } from '../sprites/index.js';
+import { Door, Flame, Player, Safe, Skull, OriginBeam, TheCross } from '../sprites/index.js';
 import GameState from '../../../state/state.js';
 
 export default class MapCreator {
@@ -19,6 +19,7 @@ export default class MapCreator {
 		const eyes = GameState.getEyes();
 		const doorGroup = this.scene.physics.add.group();
 		const flameGroup = this.scene.physics.add.staticGroup();
+		const beamGroup = this.scene.physics.add.staticGroup();
 
 		this._prepareObjects(map, this.currentMap.layers.doors)
 			.forEach((doorProps) => {
@@ -35,7 +36,18 @@ export default class MapCreator {
 		let skull = this._prepareObjects(map, this.currentMap.layers.skull)
 			.map(skullProps => new Skull(this.scene, skullProps))[0];
 
-		return { doorGroup, flameGroup, skull };
+		let theCross = null;
+		this._prepareObjects(map, this.currentMap.layers.cross)
+			.forEach((objProps) => {
+				if (objProps.isCross) {
+					theCross = new TheCross(this.scene, objProps);
+					return;
+				}
+				
+				beamGroup.add(new OriginBeam(this.scene, objProps));
+			});
+
+		return { beamGroup, doorGroup, flameGroup, skull, theCross };
 	}
 
 	get currentMap() {
