@@ -5,6 +5,8 @@
 - [ ] Create second level
 - [ ] Create third level
 
+* Figure out way to inform the player of the voir scene and how to change the eyes
+
 ## SECONDARY
 
 - [ ] Sound effects

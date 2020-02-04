@@ -4,16 +4,19 @@ import GameState from '../../state/state.js';
 import { Door, Flame, Player, Safe, Skull } from './sprites/index.js';
 import KeyboardSprite from '../../sprites/keyboardSprite.js';
 import InputService from './services/inputService.js';
+import MapCreator from './services/mapCreator.js';
 
 export default class PlayScene extends Phaser.Scene {
 	constructor() {
 		super({ key: CONST.keys.playScene });
+		this.mapCreator = new MapCreator(this);
 	}
 
 	init(data) {
 		this.cameras.main.setBackgroundColor(CONST.colors.light);
 
 		this.currentMap = CONST.maps[data.mapKey];
+		this.mapCreator.currentMap = this.currentMap;
 	}
 
 	preload() {
@@ -30,7 +33,8 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	create() {
-		const { doorGroup, flameGroup, skull } = this._createMap();
+		this.mapCreator.create();
+		const { doorGroup, flameGroup, skull } = this.mapCreator.create();
 
 		this.flameGroup = flameGroup;
 
@@ -105,76 +109,6 @@ export default class PlayScene extends Phaser.Scene {
 		this.anims.create(playerRight);
 		this.anims.create(flamesAnim);
 		this.anims.create(skullAnim);
-	}
-
-	_createMap() {
-		const map = this.add.tilemap(this.currentMap.key);
-		this.physics.world.bounds.width = map.widthInPixels;
-		this.physics.world.bounds.height = map.heightInPixels;
-
-		const tileset = map.addTilesetImage(CONST.keys.gameTilesheet);
-		map.createStaticLayer(this.currentMap.layers.walls, tileset);
-		map.createStaticLayer(this.currentMap.layers.floor, tileset);
-
-		const extractProps = (obj) => {
-			const properties = {};
-
-			obj.properties.forEach((prop) => {
-				properties[prop.name] = prop.value;
-			});
-
-			return properties;
-		}
-
-		const doorGroup = this.physics.add.group();
-
-		map.getObjectLayer(this.currentMap.layers.doors)
-			.objects.forEach((doorObj) => {
-				const properties = extractProps(doorObj);
-
-				const door = new Door(this, {
-					x: doorObj.x,
-					y: doorObj.y,
-					flippedVertical: doorObj.flippedVertical,
-					flippedHorizontal: doorObj.flippedHorizontal,
-					...properties,
-				});
-
-				doorGroup.add(door);
-			});
-
-		const flameGroup = this.physics.add.staticGroup();
-		const eyes = GameState.getEyes();
-
-		map.getObjectLayer(this.currentMap.layers.flame)
-			.objects.forEach((flameObj) => {
-				const properties = extractProps(flameObj);
-
-				const flame = new Flame(this, {
-					x: flameObj.x,
-					y: flameObj.y,
-					...properties,
-				});
-
-				flame.display(eyes.left, eyes.middle, eyes.right);
-
-				flameGroup.add(flame);
-			});
-
-		let skull = null;
-
-		map.getObjectLayer(this.currentMap.layers.skull)
-			.objects.forEach((skullObj) => {
-				const properties = extractProps(skullObj);
-
-				skull = new Skull(this, {
-					x: skullObj.x,
-					y: skullObj.y,
-					...properties,
-				});
-			});
-
-		return { doorGroup, flameGroup, skull };
 	}
 
 	_updateSafeIndicator() {

@@ -6,11 +6,12 @@ const tilesheet = {
 };
 
 const layers = {
-	skull: 'skullLayer',
+	cross: 'crossLayer',
 	doors: 'doorLayer',
-	floor: 'floorLayer',
-	walls: 'wallLayer',
 	flame: 'flameLayer',
+	floor: 'floorLayer',
+	skull: 'skullLayer',
+	walls: 'wallLayer',
 };
 
 const maps = {

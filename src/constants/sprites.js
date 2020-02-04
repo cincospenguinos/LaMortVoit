@@ -91,6 +91,13 @@ const sprites = {
 			frameHeight: 147,
 		},
 	},
+	theCross: {
+		location: `${spriteDir}/theCross.png`,
+		config: {
+			frameWidth: 8,
+			frameHeight: 8,
+		},
+	},
 };
 
 export default sprites;
