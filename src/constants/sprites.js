@@ -32,7 +32,7 @@ const sprites = {
 		location: `${spriteDir}/flames.png`,
 		config: {
 			frameWidth: 8,
-			frameHeight: 9,
+			frameHeight: 8,
 		},
 	},
 	fullEyes: {

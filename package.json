@@ -4,7 +4,8 @@
   "description": "Game jam for Nokia Game Jam, 2020",
   "main": "src/main.js",
   "scripts": {
-    "start": "npx webpack --watch --config=webpack.config.js"
+    "start": "npx webpack --watch --config=webpack.config.js",
+    "build": "npx webpack --mode=production --config=webpack.config.js"
   },
   "repository": {
     "type": "git",

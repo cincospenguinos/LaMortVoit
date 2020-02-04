@@ -45,7 +45,7 @@ class GameState {
 					player: { x: 42, y: 75 },
 				},
 				right: {
-					player: {},
+					player: { x: 12, y: 58 },
 				},
 			},
 			skullsRetrieved: {

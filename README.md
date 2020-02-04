@@ -2,9 +2,8 @@
 
 ## MANDATORY
 
-- [ ] Create third level
-
-* Figure out way to inform the player of the voir scene and how to change the eyes
+- [ ] Ending with the safe
+- [ ] Figure out way to inform the player of the voir scene and how to change the eyes
 
 ## SECONDARY
 
@@ -33,3 +32,4 @@
 - [x] Create first level
 - [x] Add key value to voir scene when skull is retrieved
 - [x] Create second level
+- [x] Create third level

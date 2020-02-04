@@ -9,6 +9,7 @@ export default class TheCross extends Phaser.Physics.Arcade.Sprite {
 		scene.physics.add.existing(this);
 
 		this.scene = scene;
+		this.body.setSize(5, 5, true);
 
 		this.anims.play(CONST.keys.theCrossAnim);
 	}
