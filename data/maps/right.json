@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"right.json"
+        }
+    },
  "height":9,
  "infinite":false,
  "layers":[
@@ -38,6 +46,16 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"playerX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"playerY",
+                         "type":"int",
+                         "value":57
+                        }, 
+                        {
                          "name":"transportsTo",
                          "type":"string",
                          "value":"hub"
@@ -76,7 +94,7 @@
                  "visible":true,
                  "width":8,
                  "x":16,
-                 "y":32
+                 "y":24
                 }, 
                 {
                  "gid":9,

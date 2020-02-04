@@ -28,6 +28,7 @@ export default class OriginBeam extends Phaser.Physics.Arcade.Sprite {
 			while (xPos < width && xPos > 0 &&
 							yPos < height && yPos > 0) {
 				const beam = new BeamOfLight(this.scene, { x: xPos, y: yPos, origin: this });
+				beam.angle = this.angle + 90;
 				this.beams.push(beam);
 
 				const next = this._nextDisplay(xPos, yPos);
