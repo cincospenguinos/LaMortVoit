@@ -16,12 +16,17 @@ export default class TextScene extends Phaser.Scene {
 	}
 
 	preload() {
+		this.load.audio(CONST.keys.textDisplayed, CONST.audio.textDisplayed.location);
+
 		Object.values(CONST.text).forEach((textObj) => {
 			this.load.json(textObj.key, textObj.location);
 		});
 	}
 
 	create() {
+		const sound = this.sound.add(CONST.keys.textDisplayed);
+		sound.play();
+
 		const backIcon = this.add.image(3, 3, CONST.keys.backIcon);
 
 		const keyMappings = GameState.getKeyMappings();

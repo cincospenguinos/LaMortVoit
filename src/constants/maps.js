@@ -21,7 +21,7 @@ const maps = {
 		objects: {
 			safe: {
 				x: 36,
-				y: 50,
+				y: 48,
 			},
 		},
 		layers,

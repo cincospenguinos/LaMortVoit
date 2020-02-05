@@ -32,11 +32,17 @@ export default class VoirScene extends Phaser.Scene {
 	preload() {
 		const { fullEyes, backIcon } = CONST.sprites;
 
+		this.load.audio(CONST.keys.eyeChanged, CONST.audio.eyeChanged.location);
+		this.load.audio(CONST.keys.closeEyeMenu, CONST.audio.closeEyeMenu.location);
+
 		this.load.image(CONST.keys.backIcon, backIcon.location);
 		this.load.spritesheet(CONST.keys.fullEyes, fullEyes.location, fullEyes.config);
 	}
 
 	create() {
+		this.eyeChanged = this.sound.add(CONST.keys.eyeChanged);
+		this.closeEyeMenu = this.sound.add(CONST.keys.closeEyeMenu);
+
 		const eyeState = GameState.getEyes();
 		const solution = GameState.solution;
 
@@ -61,11 +67,13 @@ export default class VoirScene extends Phaser.Scene {
 
 	update() {
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.select)) {
+			this.eyeChanged.play();
 			this.eyeToggleFunc();
 			this.eyeToggleIdx = (this.eyeToggleIdx + 1) % 3;
 		}
 
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.back)) {
+			this.closeEyeMenu.play();
 			GameState.setEyesOpen(this.leftEye.isOpen(), this.middleEye.isOpen(), this.rightEye.isOpen());
 			this.scene.get(CONST.keys.playScene).eyesModified();
 			this.scene.switch(CONST.keys.playScene);

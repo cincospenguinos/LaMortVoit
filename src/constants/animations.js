@@ -31,6 +31,12 @@ const animations = {
 		frameRate,
 		yoyo: true,
 	},
+	playerDeathAnim: {
+		key: 'playerDeathAnim',
+		repeat: 0,
+		frameRate: 8,
+		yoyo: false,
+	},
 	skullAnim: {
 		key: 'skullAnim',
 		frameRate: 1,

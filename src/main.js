@@ -5,8 +5,11 @@ import PlayScene from './scenes/play/playScene.js';
 import VoirScene from './scenes/voir/voirScene.js';
 import SafeScene from './scenes/safe/safeScene.js';
 import TextScene from './scenes/text/textScene.js';
+import TarotScene from './scenes/tarot/tarotScene.js';
+import EndScene from './scenes/end/endScene.js';
 
-const scene = [MenuScene, ConfigScene, PlayScene, VoirScene, SafeScene, TextScene];
+const scene = [MenuScene, ConfigScene, PlayScene, VoirScene,
+  SafeScene, TextScene, TarotScene, EndScene];
 
 const config = {
 	width: 84,

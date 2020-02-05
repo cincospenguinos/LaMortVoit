@@ -77,6 +77,13 @@ const sprites = {
 			frameHeight: 8,
 		},
 	},
+	playerDeath: {
+		location: `${spriteDir}/playerDeath.png`,
+		config: {
+			frameWidth: 8,
+			frameHeight: 8,
+		},
+	},
 	safe: {
 		location: `${spriteDir}/safe.png`,
 		config: {

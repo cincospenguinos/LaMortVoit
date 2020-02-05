@@ -18,9 +18,14 @@ export default class SafeScene extends Phaser.Scene {
 
 		this.load.image(CONST.keys.backIcon, backIcon.location);
 		this.load.image(CONST.keys.safeLock, safeLock.location);
+
+		this.load.audio(CONST.keys.negative, CONST.audio.negative.location);
+		this.load.audio(CONST.keys.safeOpened, CONST.audio.safeOpened.location);
 	}
 
 	create() {
+		this.safeOpened = this.sound.add(CONST.keys.safeOpened);
+		this.negativeSound = this.sound.add(CONST.keys.negative);
 		const backIcon = this.add.image(3, 3, CONST.keys.backIcon);
 
 		const safeScene = this;
@@ -55,7 +60,15 @@ export default class SafeScene extends Phaser.Scene {
 		}
 
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.select)) {
-			// TODO: open the safe!
+			GameState.setCode(this.safeLocks[0].currentValue, this.safeLocks[1].currentValue,
+				this.safeLocks[2].currentValue);
+
+			if (GameState.openSafe()) {
+				this.safeOpened.play();
+				this.scene.start(CONST.keys.tarotScene);
+			} else {
+				this.negativeSound.play();
+			}
 		}
 
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.back)) {

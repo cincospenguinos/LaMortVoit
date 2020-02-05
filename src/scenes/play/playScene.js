@@ -33,10 +33,16 @@ export default class PlayScene extends Phaser.Scene {
 		this.load.spritesheet(CONST.keys.theCross, theCross.location, theCross.config);
 		this.load.spritesheet(CONST.keys.beamOfLight, beamOfLight.location, beamOfLight.config);
 
+		this.load.audio(CONST.keys.negative, CONST.audio.negative.location);
+		this.load.audio(CONST.keys.openEyeMenu, CONST.audio.openEyeMenu.location);
+
 		this.load.tilemapTiledJSON(this.currentMap.key, this.currentMap.location);
 	}
 
 	create() {
+		this.negativeSound = this.sound.add(CONST.keys.negative);
+		this.openEyeMenu = this.sound.add(CONST.keys.openEyeMenu);
+
 		this._createAnimations();
 		const eyes = GameState.getEyes();
 
@@ -75,7 +81,7 @@ export default class PlayScene extends Phaser.Scene {
 		}
 
 		this.physics.add.overlap(this.player, beamOfLightGroup, (player, beam) => {
-			// TODO: Sound effect for hitting beam
+			this.negativeSound.play();
 			this.scene.pause();
 			this.scene.restart({ mapKey: this.currentMap.key });
 		});
@@ -108,6 +114,7 @@ export default class PlayScene extends Phaser.Scene {
 		this.inputService.applyInput(this.inputKeys);
 
 		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.options)) {
+			this.openEyeMenu.play();
 			this.scene.switch(CONST.keys.voirScene);
 		}
 

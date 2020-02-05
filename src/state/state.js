@@ -12,7 +12,13 @@ const mappings = {
 };
 
 const getRandomInt = () => {
-	return Math.floor(Math.random() * 10);
+	let number = Math.floor(Math.random() * 10);
+
+	while (number === 0 || number === 10) {
+		number = Math.floor(Math.random() * 10);
+	}
+
+	return number;
 }
 
 class GameState {
