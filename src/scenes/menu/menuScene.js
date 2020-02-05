@@ -29,6 +29,11 @@ export default class MenuScene extends Phaser.Scene {
 	}
 
 	create() {
+		if (!this.music) {
+			this.music = this.sound.add(CONST.keys.theme);
+			this.music.play();
+		}
+
 		this.add.image(42, 10, CONST.keys.menuText);
 
 		this._createEyes();
@@ -63,9 +68,6 @@ export default class MenuScene extends Phaser.Scene {
 		this.eyes.push(new FullEye(this, { x: 10, y: 36 }));
 		this.eyes.push(new FullEye(this, { x: 42, y: 28 }));
 		this.eyes.push(new FullEye(this, { x: 74, y: 36 }));
-
-		this.music = this.sound.add(CONST.keys.theme);
-		this.music.play();
 
 		this.time.addEvent({
 			delay: 787,
