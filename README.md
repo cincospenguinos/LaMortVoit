@@ -2,28 +2,13 @@
 
 ## MANDATORY
 
-- [ ] Figure out way to inform the player of the voir scene and how to change the eyes
-	* ZONE! Put a zone before the first room that shows the letter e if the player has not opened
-	  the voir menu!
-	* Just add it to state
-
 ## SECONDARY
 
-- [ ] Sound effects
-	- [ ] Walking
-	- [ ] Going through door
-	- [ ] Moving the cross
-	- [x] Opening the safe
-	- [x] Attempting to open when the safe is locked
-	- [x] Music during death scene
-	- [x] Music in text scene--something like half the main theme
+- [ ] Fix where the doors point to in Tiled now that we moved them
 - [ ] Settings scene NEEDS to be done--all the hooks are there homie
 
 ## POLISH
 
-- [ ] Transition to play scene?
-- [ ] Animations for doors?
-- [ ] Create favicon
 
 ## DONE
 

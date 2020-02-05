@@ -4,7 +4,8 @@ import BeamOfLight from './beamOfLight.js';
 
 export default class OriginBeam extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, opts = {}) {
-		super(scene, opts.x, opts.y, CONST.keys.originBeam);
+		const offset = CONST.tiledOffset;
+		super(scene, opts.x + offset.x, opts.y + offset.y, CONST.keys.originBeam);
 
 		scene.add.existing(this);
 		scene.physics.add.existing(this, true);

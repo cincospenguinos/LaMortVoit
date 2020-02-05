@@ -89,7 +89,7 @@ class GameState {
 	}
 
 	getSolutionFor(textKey) {
-		this.currentState.solution[textKey];
+		return this.currentState.solution[textKey];
 	}
 
 	locationsFor(roomKey) {

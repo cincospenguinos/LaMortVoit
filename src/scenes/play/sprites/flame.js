@@ -3,8 +3,8 @@ import CONST from '../../../constants/index.js';
 
 export default class Flame extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, opts = {}) {
-		// TODO: For some reason tiled offsets all the objects here in a weird way
-		super(scene, opts.x + 5, opts.y - 1, CONST.keys.flames);
+		const offset = CONST.tiledOffset;
+		super(scene, opts.x + offset.x, opts.y + offset.y, CONST.keys.flames);
 
 		scene.add.existing(this);
 		scene.physics.add.existing(this, true);

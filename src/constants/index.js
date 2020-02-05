@@ -28,6 +28,11 @@ const dimensions = {
 	},
 };
 
+const tiledOffset = {
+	x: 4,
+	y: -4,
+};
+
 const scenes = {
 	menuScene: 'MenuScene',
 	configScene: 'ConfigScene',
@@ -57,6 +62,7 @@ const constants = {
 	maps,
 	sprites,
 	text,
+	tiledOffset,
 };
 
 export default constants;

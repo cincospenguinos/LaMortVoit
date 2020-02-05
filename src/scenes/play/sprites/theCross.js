@@ -3,7 +3,8 @@ import CONST from '../../../constants/index.js';
 
 export default class TheCross extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, opts = {}) {
-		super(scene, opts.x, opts.y, CONST.keys.theCross);
+		const offset = CONST.tiledOffset;
+		super(scene, opts.x + offset.x, opts.y + offset.y, CONST.keys.theCross);
 
 		scene.add.existing(this);
 		scene.physics.add.existing(this);
