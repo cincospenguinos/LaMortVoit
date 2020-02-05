@@ -53,7 +53,7 @@
                         {
                          "name":"playerY",
                          "type":"int",
-                         "value":76
+                         "value":72
                         }, 
                         {
                          "name":"transportsTo",
