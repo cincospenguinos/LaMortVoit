@@ -24,6 +24,7 @@ const getRandomInt = () => {
 class GameState {
 	constructor() {
 		this.currentState = {
+			inputType: 'default',
 			inputKeys: inputHelpers.inputKeysFor('default'),
 			eyesOpen: {
 				left: true,
@@ -61,11 +62,6 @@ class GameState {
 			},
 			hasSeenVoirMenu: false,
 		};
-	}
-
-	setInputConfig(configName) {
-		const inputKeys = inputHelpers.inputKeysFor(configName);
-		this.currentState.inputKeys = inputKeys;
 	}
 
 	getEyes() {
@@ -142,6 +138,15 @@ class GameState {
 		});
 
 		return keyMappings;
+	}
+
+	get inputType() {
+		return this.currentState.inputType;
+	}
+
+	set inputType(configName) {
+		const inputKeys = inputHelpers.inputKeysFor(configName);
+		this.currentState.inputKeys = inputKeys;
 	}
 };
 

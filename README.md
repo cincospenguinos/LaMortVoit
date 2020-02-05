@@ -1,14 +1,6 @@
 # La Mort Voit
 
-## MANDATORY
-
-## SECONDARY
-
-- [ ] Fix where the doors point to in Tiled now that we moved them
-- [ ] Settings scene NEEDS to be done--all the hooks are there homie
-
-## POLISH
-
+Game created for the [Nokia 2020 Game Jam](https://itch.io/jam/nokiajam2). Inspired by a dream I had.
 
 ## DONE
 
@@ -29,3 +21,5 @@
 	- [x] A scene where the player is fulfilled
 - [x] Fix the rotation of the beams of light
 - [x] Put a skull on the third frame of the safe
+- [x] Fix where the doors point to in Tiled now that we moved them
+- [x] Settings scene NEEDS to be done--all the hooks are there homie

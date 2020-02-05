@@ -44,9 +44,19 @@ export default class MenuScene extends Phaser.Scene {
 			this.scene.start(CONST.keys.playScene, { mapKey: CONST.keys.hub });
 		}
 
-		if (this.inputKeys.options.isDown) {
-			console.warn('NO SETTINGS SET!');
+		if (Phaser.Input.Keyboard.JustDown(this.inputKeys.options)) {
+			this.scene.start(CONST.keys.configScene);
 		}
+	}
+
+	configUpdated() {
+		Object.values(this.inputKeys).forEach(k => k.destroy());
+
+		const keyMappings = GameState.getKeyMappings();
+		this.optionsKey.setDisplayedKey(keyMappings.options);
+		this.playKey.setDisplayedKey(keyMappings.select);
+
+		this.inputKeys = this.input.keyboard.addKeys(keyMappings);
 	}
 
 	_createEyes() {
@@ -70,10 +80,10 @@ export default class MenuScene extends Phaser.Scene {
 
 	_createKeyImages(keyMappings) {
 		this.add.image(22, 44, CONST.keys.cogWheel);
-		new KeyboardSprite(this, { x: 27, y: 44, currentKey: keyMappings.options });
+		this.optionsKey = new KeyboardSprite(this, { x: 27, y: 44, currentKey: keyMappings.options });
 
 		this.add.image(57, 44, CONST.keys.playButton);
-		new KeyboardSprite(this, { x: 62, y: 44, currentKey: keyMappings.play });
+		this.playKey = new KeyboardSprite(this, { x: 62, y: 44, currentKey: keyMappings.play });
 	}
 
 	get currentEye() {
