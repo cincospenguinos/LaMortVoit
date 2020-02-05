@@ -76,7 +76,7 @@
                         {
                          "name":"playerX",
                          "type":"int",
-                         "value":68
+                         "value":44
                         }, 
                         {
                          "name":"playerY",
@@ -104,7 +104,7 @@
                         {
                          "name":"playerX",
                          "type":"int",
-                         "value":116
+                         "value":76
                         }, 
                         {
                          "name":"playerY",
