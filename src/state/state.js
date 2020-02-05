@@ -59,6 +59,7 @@ class GameState {
 				middle: false,
 				right: false,
 			},
+			hasSeenVoirMenu: false,
 		};
 	}
 
@@ -98,6 +99,14 @@ class GameState {
 	setLastPlayerLoc(roomKey, x, y) {
 		this.currentState.locationsPerRoom[roomKey].player.x = x;
 		this.currentState.locationsPerRoom[roomKey].player.y = y;
+	}
+
+	get seenVoirMenu() {
+		return this.currentState.hasSeenVoirMenu;
+	}
+
+	set seenVoirMenu(bool) {
+		this.currentState.hasSeenVoirMenu = bool;
 	}
 
 	openSafe() {

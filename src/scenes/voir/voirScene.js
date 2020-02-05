@@ -63,6 +63,8 @@ export default class VoirScene extends Phaser.Scene {
 		const keyMappings = GameState.getKeyMappings();
 		this.inputKeys = this.input.keyboard.addKeys(keyMappings);
 		new KeyboardSprite(this, { x: 8, y: 3, currentKey: keyMappings.back });
+
+		GameState.seenVoirMenu = true;
 	}
 
 	update() {

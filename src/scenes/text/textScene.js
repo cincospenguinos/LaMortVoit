@@ -9,6 +9,7 @@ export default class TextScene extends Phaser.Scene {
 		super({ key: CONST.keys.textScene });
 
 		this.textWriter = new TextWriter(this);
+		this.playSound = true;
 	}
 
 	init() {
@@ -24,8 +25,7 @@ export default class TextScene extends Phaser.Scene {
 	}
 
 	create() {
-		const sound = this.sound.add(CONST.keys.textDisplayed);
-		sound.play();
+		this.sound = this.sound.add(CONST.keys.textDisplayed);
 
 		const backIcon = this.add.image(3, 3, CONST.keys.backIcon);
 
@@ -35,6 +35,11 @@ export default class TextScene extends Phaser.Scene {
 	}
 
 	update() {
+		if (this.playSound) {
+			this.sound.play();
+			this.playSound = false;
+		}
+
 		if (this.textWriter.mustUpdate(this.textKey)) {
 			const text = this.cache.json.get(this.textKey).text;
 			this.textWriter.showText(this.textKey, text);
@@ -47,6 +52,7 @@ export default class TextScene extends Phaser.Scene {
 	}
 
 	setTextKey(textKey) {
+		this.playSound = true;
 		this.textKey = textKey;
 	}
 }
